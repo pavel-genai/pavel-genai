@@ -14,7 +14,7 @@ jobs:
             exit 1
           fi
           # Ensure table header exists
-          grep -q "| Project | Status | Coverage | Description |" README.md
+          grep -q "| Project | Lang | Status | Coverage | Description |" README.md
           # Ensure at least 20 project rows
           rows=$(grep -c '^\| \[' README.md)
           if [ "$rows" -lt 20 ]; then
