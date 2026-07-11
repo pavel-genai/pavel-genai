@@ -1,4 +1,4 @@
-AI-generated projects spanning 12 languages across blockchain, cryptography, networking, graphics, ML, and more.
+AI-generated projects spanning 15 languages across blockchain, cryptography, networking, graphics, ML, and more.
 
 | Project | Lang | Status | Coverage | Description |
 |---------|------|--------|----------|-------------|
