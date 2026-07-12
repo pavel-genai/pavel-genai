@@ -19,6 +19,21 @@ HTTP 200
 jsonpath "$.docId" isInteger
 jsonpath "$.message" == "Document indexed successfully"
 
+# A second document without the token is required for the search below:
+# TF-IDF scores with idf = log(N/df), so a term present in every document
+# of the index scores 0 and the ranker drops zero-score results. On a
+# fresh container the index is empty — with only the document above,
+# N = df = 1 and the search would return nothing.
+POST http://localhost:8080/index
+Content-Type: application/json
+{
+  "title": "Hurl Decoy Document",
+  "text": "a filler document that keeps the test token discriminating for tf-idf"
+}
+HTTP 200
+[Asserts]
+jsonpath "$.docId" isInteger
+
 # text is required
 POST http://localhost:8080/index
 Content-Type: application/json
