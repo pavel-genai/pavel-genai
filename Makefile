@@ -27,13 +27,8 @@ logs:
 	docker compose logs -f --tail=100
 
 # Integration tests (Hurl suites in tests/, one directory per service).
-# Run everything: make test
-# Run one suite:  make test-<service>, e.g. make test-sql-parser
 test:
 	hurl --test tests/*/*.hurl
-
-test-%:
-	hurl --test tests/$*/*.hurl
 
 # One-shot / interactive tools
 dns-resolver:
@@ -42,7 +37,7 @@ dns-resolver:
 raft-consensus:
 	docker compose run --rm raft-consensus
 
-# Short aliases for service names, used by the up-% and logs-% patterns.
+# Short aliases for service names, used by the up-%, logs-% and test-% patterns.
 # Services without an alias (redis, dashboard) are addressed by full name.
 search    := search-engine
 block     := block-indexer
@@ -63,3 +58,8 @@ up-%:
 # Tail logs for an individual service: make logs-<alias|service>
 logs-%:
 	docker compose logs -f --tail=100 $(or $($*),$*)
+
+# Run one service's integration test suite: make test-<alias|service>,
+# e.g. make test-sql or make test-sql-parser
+test-%:
+	hurl --test tests/$(or $($*),$*)/*.hurl
