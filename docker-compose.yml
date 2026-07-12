@@ -1,3 +1,4 @@
+---
 services:
   search-engine:
     build: ../search-engine
