@@ -1,4 +1,6 @@
-AI-generated projects spanning 15 languages across blockchain, cryptography, networking, graphics, ML, and more.
+List of AI-generated projects spanning 15 languages across blockchain, cryptography, networking, graphics, ML, and more.
+
+See also [ai-crypto-onramp](https://github.com/ai-crypto-onramp) - end-to-end microservices architecture for fiat-to-crypto conversion stack.
 
 | Project | Lang | Status | Coverage | Description |
 |---------|------|--------|----------|-------------|
