@@ -16,3 +16,7 @@ HTTP 404
 
 GET http://localhost:8081/address/0xnobody/transactions
 HTTP 404
+
+# block number must be numeric ({number} is a long)
+GET http://localhost:8081/blocks/notanumber
+HTTP 400

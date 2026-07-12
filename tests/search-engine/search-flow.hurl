@@ -62,3 +62,48 @@ HTTP 200
 [Asserts]
 jsonpath "$.totalDocuments" >= 1
 jsonpath "$.totalTerms" >= 1
+
+# --- boolean and phrase queries ---
+
+POST http://localhost:8080/index
+Content-Type: application/json
+{
+  "title": "Hurl Alpha Beta",
+  "text": "hurlalpha and hurlbeta both appear in this document"
+}
+HTTP 200
+
+POST http://localhost:8080/index
+Content-Type: application/json
+{
+  "title": "Hurl Alpha Only",
+  "text": "hurlalpha appears alone in this one"
+}
+HTTP 200
+
+# AND requires both terms: only the Alpha Beta document matches
+GET http://localhost:8080/search?q=hurlalpha+AND+hurlbeta
+HTTP 200
+[Asserts]
+jsonpath "$.totalResults" >= 1
+jsonpath "$.results[0].title" == "Hurl Alpha Beta"
+jsonpath "$.results[*].title" not contains "Hurl Alpha Only"
+
+# quoted phrase query
+POST http://localhost:8080/index
+Content-Type: application/json
+{
+  "title": "Hurl Phrase Doc",
+  "text": "the words hurlzebra hurlquantum appear adjacently here"
+}
+HTTP 200
+
+GET http://localhost:8080/search?q=%22hurlzebra%20hurlquantum%22
+HTTP 200
+[Asserts]
+jsonpath "$.totalResults" >= 1
+jsonpath "$.results[0].title" == "Hurl Phrase Doc"
+
+# missing q parameter entirely (Spring rejects before the controller)
+GET http://localhost:8080/search
+HTTP 400

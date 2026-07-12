@@ -47,3 +47,46 @@ GET http://localhost:4001/kv/hurl-smoke
 HTTP 404
 [Asserts]
 jsonpath "$.error" == "not_found"
+
+# deletes are tombstone writes, so deleting a missing key is idempotent
+DELETE http://localhost:4001/kv/hurl-smoke
+HTTP 200
+[Asserts]
+jsonpath "$.status" == "deleted"
+
+# --- structured values and overwrites ---
+
+PUT http://localhost:4001/kv/hurl-struct
+Content-Type: application/json
+{
+  "value": {"nested": [1, 2, 3], "flag": true}
+}
+HTTP 200
+
+GET http://localhost:4001/kv/hurl-struct
+HTTP 200
+[Asserts]
+jsonpath "$.value.nested[2]" == 3
+jsonpath "$.value.flag" == true
+
+# last write wins
+PUT http://localhost:4001/kv/hurl-struct
+Content-Type: application/json
+{
+  "value": "overwritten"
+}
+HTTP 200
+
+GET http://localhost:4001/kv/hurl-struct
+HTTP 200
+[Asserts]
+jsonpath "$.value" == "overwritten"
+
+DELETE http://localhost:4001/kv/hurl-struct
+HTTP 200
+
+# unknown routes fall through to 404
+GET http://localhost:4001/definitely/not/a/route
+HTTP 404
+[Asserts]
+jsonpath "$.error" == "not_found"

@@ -40,3 +40,20 @@ GET http://localhost:3000/tags/nodejs
 HTTP 200
 [Asserts]
 body contains "Building REST APIs with Express"
+
+# blank search query renders an empty result page, not an error
+GET http://localhost:3000/search?q=
+HTTP 200
+[Asserts]
+body contains "Search results for"
+
+# unknown tag renders an empty list page
+GET http://localhost:3000/tags/hurl-no-such-tag
+HTTP 200
+[Asserts]
+body contains "Posts tagged"
+body not contains "Getting Started with Markdown CMS"
+
+# unknown routes hit the Express default 404
+GET http://localhost:3000/definitely-not-a-route
+HTTP 404

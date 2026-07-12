@@ -73,3 +73,50 @@ HTTP 200
 [Asserts]
 jsonpath "$.result" exists
 jsonpath "$.error" not exists
+
+# unknown method
+POST http://localhost:8545
+Content-Type: application/json
+{
+  "jsonrpc": "2.0",
+  "method": "noSuchMethod",
+  "params": {},
+  "id": 6
+}
+HTTP 200
+[Asserts]
+jsonpath "$.error.code" == -32601
+jsonpath "$.error.message" contains "method not found"
+
+# malformed JSON body
+POST http://localhost:8545
+Content-Type: application/json
+`this is not json`
+HTTP 200
+[Asserts]
+jsonpath "$.error.code" == -32700
+jsonpath "$.error.message" == "parse error"
+
+# batch requests return an array of responses in order
+POST http://localhost:8545
+Content-Type: application/json
+[
+  {"jsonrpc": "2.0", "method": "getPoolStatus", "params": {}, "id": 10},
+  {"jsonrpc": "2.0", "method": "noSuchMethod", "params": {}, "id": 11}
+]
+HTTP 200
+[Asserts]
+jsonpath "$" count == 2
+jsonpath "$[0].id" == 10
+jsonpath "$[0].result" exists
+jsonpath "$[1].id" == 11
+jsonpath "$[1].error.code" == -32601
+
+# empty batch is invalid per the JSON-RPC spec
+POST http://localhost:8545
+Content-Type: application/json
+[]
+HTTP 200
+[Asserts]
+jsonpath "$.error.code" == -32600
+jsonpath "$.error.message" contains "empty batch"

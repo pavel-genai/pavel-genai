@@ -31,3 +31,20 @@ Content-Type: application/json
 HTTP 400
 [Asserts]
 jsonpath "$.error" exists
+
+# an empty data object still renders — missing keys leave their
+# {{placeholder}} untouched in the output
+POST http://localhost:8084/generate
+Content-Type: application/json
+{}
+HTTP 200
+[Asserts]
+header "Content-Type" == "application/pdf"
+bytes startsWith hex,25504446;
+
+# wrong methods are rejected
+GET http://localhost:8084/generate
+HTTP 405
+
+POST http://localhost:8084/health
+HTTP 405

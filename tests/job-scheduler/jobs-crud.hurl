@@ -56,3 +56,50 @@ GET http://localhost:4000/jobs/{{job_id}}
 HTTP 404
 [Asserts]
 jsonpath "$.error" == "Job not found"
+
+# --- DAG cycle detection ---
+
+# first job depends on a not-yet-existing second job — allowed
+POST http://localhost:4000/jobs
+Content-Type: application/json
+{
+  "id": "hurl-dag-a",
+  "name": "hurl-dag-a",
+  "deps": ["hurl-dag-b"]
+}
+HTTP 201
+[Asserts]
+jsonpath "$.ok" == true
+
+# closing the loop is rejected
+POST http://localhost:4000/jobs
+Content-Type: application/json
+{
+  "id": "hurl-dag-b",
+  "name": "hurl-dag-b",
+  "deps": ["hurl-dag-a"]
+}
+HTTP 400
+[Asserts]
+jsonpath "$.error" contains "would create a cycle"
+
+DELETE http://localhost:4000/jobs/hurl-dag-a
+HTTP 200
+
+# --- retry policy is stored on the job ---
+
+POST http://localhost:4000/jobs
+Content-Type: application/json
+{
+  "name": "hurl-retry",
+  "retry_policy": {"max_retries": 2, "backoff_ms": 100}
+}
+HTTP 201
+[Captures]
+retry_job_id: jsonpath "$.job.id"
+[Asserts]
+jsonpath "$.job.max_retries" == 2
+jsonpath "$.job.backoff_ms" == 100
+
+DELETE http://localhost:4000/jobs/{{retry_job_id}}
+HTTP 200
