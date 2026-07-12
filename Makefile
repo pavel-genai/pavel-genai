@@ -1,4 +1,4 @@
-.PHONY: up down restart ps logs build rebuild pull logs-follow test \
+.PHONY: up down restart ps logs build rebuild pull logs-follow test dashboard \
         dns-resolver raft-consensus
 
 # Default target: start the whole stack
@@ -25,6 +25,10 @@ pull:
 
 logs:
 	docker compose logs -f --tail=100
+
+# Open the Gatus health dashboard in the browser
+dashboard:
+	open http://localhost:8090
 
 # Integration tests (Hurl suites in tests/, one directory per service).
 # Writes an HTML report to reports/ (view with: open reports/index.html).
