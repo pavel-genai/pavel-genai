@@ -1,4 +1,4 @@
-.PHONY: up down restart ps logs build rebuild pull logs-follow \
+.PHONY: up down restart ps logs build rebuild pull logs-follow test \
         dns-resolver raft-consensus \
         up-search up-block up-redis up-rate up-scheduler up-kv up-mempool up-cms up-pdf up-sql up-stream up-dashboard up-gossip \
         logs-search logs-block logs-redis logs-rate logs-scheduler logs-kv logs-mempool logs-cms logs-pdf logs-sql logs-stream logs-dashboard logs-gossip
@@ -27,6 +27,15 @@ pull:
 
 logs:
 	docker compose logs -f --tail=100
+
+# Integration tests (Hurl suites in tests/, one directory per service).
+# Run everything: make test
+# Run one suite:  make test-<service>, e.g. make test-sql-parser
+test:
+	hurl --test tests/*/*.hurl
+
+test-%:
+	hurl --test tests/$*/*.hurl
 
 # One-shot / interactive tools
 dns-resolver:
