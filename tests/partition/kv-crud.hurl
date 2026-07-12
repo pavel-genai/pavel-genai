@@ -1,11 +1,11 @@
-# distributed-kvstore (port 4001): put/get/delete round-trip plus ring
+# partition (port 4001): put/get/delete round-trip plus ring
 # status. Deletes its key at the end, so re-runs are clean.
 
 GET http://localhost:4001/health
 HTTP 200
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.service" == "distributed-kvstore"
+jsonpath "$.service" == "partition"
 
 GET http://localhost:4001/ring
 HTTP 200

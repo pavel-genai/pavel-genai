@@ -1,4 +1,4 @@
-# sql-parser (port 8085): POST /query takes a raw SQL statement as the
+# parseql (port 8085): POST /query takes a raw SQL statement as the
 # body; the database lives for the process lifetime. The suite creates
 # its own table and drops it at the end.
 
@@ -6,7 +6,7 @@ GET http://localhost:8085/health
 HTTP 200
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.service" == "sql-parser"
+jsonpath "$.service" == "parseql"
 
 # cleanup from any earlier aborted run — no asserts on purpose
 POST http://localhost:8085/query

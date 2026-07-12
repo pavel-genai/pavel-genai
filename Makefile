@@ -19,7 +19,7 @@
 COMPOSE := docker compose
 REPORTS := reports
 
-.PHONY: all clean up down restart ps logs build rebuild pull test dashboard dns-resolver raft-consensus
+.PHONY: all clean up down restart ps logs build rebuild pull test dashboard phonebook parliament
 
 # Default target: start the whole stack
 all: up
@@ -65,25 +65,25 @@ test: clean
 redis-cli:
 	$(COMPOSE) exec redis redis-cli
 
-dns-resolver:
-	$(COMPOSE) run --rm dns-resolver $(ARGS)
+phonebook:
+	$(COMPOSE) run --rm phonebook $(ARGS)
 
-raft-consensus:
-	$(COMPOSE) run --rm raft-consensus
+parliament:
+	$(COMPOSE) run --rm parliament
 
 # Short aliases for service names, used by the up-%, logs-% and test-% patterns.
 # Services without an alias (redis, dashboard) are addressed by full name.
-search    := search-engine
-block     := block-indexer
-rate      := rate-limiter-service
-scheduler := job-scheduler
-kv        := distributed-kvstore
-mempool   := tx-mempool-simulator
-cms       := markdown-cms
-pdf       := pdf-generator
-sql       := sql-parser
-stream    := stream-processor
-gossip    := p2p-gossip-protocol
+search    := prospector
+block     := periscope
+rate      := pacer
+scheduler := planner
+kv        := partition
+mempool   := purgatory
+cms       := papyrus
+pdf       := press
+sql       := parseql
+stream    := pipeline
+gossip    := prattle
 
 # Start an individual service: make up-<alias|service>, e.g. make up-cms
 up-%:
@@ -94,6 +94,6 @@ logs-%:
 	$(COMPOSE) logs -f --tail=100 $(or $($*),$*)
 
 # Run one service's integration test suite: make test-<alias|service>,
-# e.g. make test-sql or make test-sql-parser
+# e.g. make test-sql or make test-parseql
 test-%:
 	hurl --test tests/$(or $($*),$*)/*.hurl

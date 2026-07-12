@@ -1,4 +1,4 @@
-# tx-mempool-simulator (port 8545): JSON-RPC 2.0 API.
+# purgatory (port 8545): JSON-RPC 2.0 API.
 # The pool rejects duplicate sender+nonce pairs and persists for the
 # container's lifetime, so the sendTransaction entry only asserts a
 # well-formed JSON-RPC envelope (first run: accepted; re-runs: duplicate

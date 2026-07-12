@@ -1,4 +1,4 @@
-# block-indexer (port 8081): the Docker image ships without block JSON
+# periscope (port 8081): the Docker image ships without block JSON
 # files, so the index is empty — these tests pin the API contract
 # (health + 404 semantics for unknown resources).
 
@@ -6,7 +6,7 @@ GET http://localhost:8081/health
 HTTP 200
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.service" == "block-indexer"
+jsonpath "$.service" == "periscope"
 
 GET http://localhost:8081/blocks/999999
 HTTP 404

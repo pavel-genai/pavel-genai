@@ -1,6 +1,6 @@
 ---
 services:
-  search-engine:
+  prospector:
     build: ../prospector
     ports:
       - "8080:8080"
@@ -18,7 +18,7 @@ services:
       retries: 3
       start_period: 30s
 
-  block-indexer:
+  periscope:
     build: ../periscope
     ports:
       - "8081:8080"
@@ -46,7 +46,7 @@ services:
       timeout: 5s
       retries: 3
 
-  rate-limiter-service:
+  pacer:
     build: ../pacer
     ports:
       - "50051:50051"
@@ -67,7 +67,7 @@ services:
       retries: 3
       start_period: 15s
 
-  job-scheduler:
+  planner:
     build: ../planner
     ports:
       - "4000:4000"
@@ -83,7 +83,7 @@ services:
       retries: 3
       start_period: 15s
 
-  distributed-kvstore:
+  partition:
     build: ../partition
     ports:
       - "4001:4000"
@@ -99,7 +99,7 @@ services:
       retries: 3
       start_period: 15s
 
-  tx-mempool-simulator:
+  purgatory:
     build: ../purgatory
     ports:
       - "8545:8545"
@@ -109,7 +109,7 @@ services:
       timeout: 5s
       retries: 3
 
-  markdown-cms:
+  papyrus:
     build: ../papyrus
     ports:
       - "3000:3000"
@@ -125,7 +125,7 @@ services:
       retries: 3
       start_period: 15s
 
-  pdf-generator:
+  press:
     build: ../press
     ports:
       - "8084:8080"
@@ -141,7 +141,7 @@ services:
       retries: 3
       start_period: 15s
 
-  sql-parser:
+  parseql:
     build: ../parseql
     ports:
       - "8085:8080"
@@ -157,7 +157,7 @@ services:
       retries: 3
       start_period: 15s
 
-  stream-processor:
+  pipeline:
     build: ../pipeline
     ports:
       - "8086:8080"
@@ -187,12 +187,12 @@ services:
       retries: 3
 
   # One-shot CLI, not a daemon: run on demand with
-  #   docker compose run --rm dns-resolver <domain>
-  dns-resolver:
+  #   docker compose run --rm phonebook <domain>
+  phonebook:
     build: ../phonebook
     profiles: ["tools"]
 
-  p2p-gossip-protocol:
+  prattle:
     build: ../prattle
     command: ["--port", "7946"]
     ports:
@@ -205,8 +205,8 @@ services:
       retries: 3
 
   # Interactive REPL, not a daemon: run on demand with
-  #   docker compose run --rm raft-consensus
-  raft-consensus:
+  #   docker compose run --rm parliament
+  parliament:
     build: ../parliament
     profiles: ["tools"]
     stdin_open: true

@@ -1,11 +1,11 @@
-# job-scheduler (port 4000): full CRUD flow — create, list, get,
+# planner (port 4000): full CRUD flow — create, list, get,
 # delete — plus cron validation. Cleans up after itself.
 
 GET http://localhost:4000/health
 HTTP 200
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.service" == "job-scheduler"
+jsonpath "$.service" == "planner"
 
 POST http://localhost:4000/jobs
 Content-Type: application/json

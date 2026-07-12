@@ -1,4 +1,4 @@
-# markdown-cms (port 3000): serves HTML rendered from the bundled
+# papyrus (port 3000): serves HTML rendered from the bundled
 # content/ directory (getting-started, typescript-tips,
 # building-apis-with-express).
 
@@ -6,7 +6,7 @@ GET http://localhost:3000/health
 HTTP 200
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.service" == "markdown-cms"
+jsonpath "$.service" == "papyrus"
 
 # root redirects to the post list
 GET http://localhost:3000/

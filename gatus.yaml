@@ -4,89 +4,89 @@ ui:
   header: ai-pavel services
 
 endpoints:
-  - name: search-engine
+  - name: prospector
     group: services
-    url: "http://search-engine:8080/health"
+    url: "http://prospector:8080/health"
     interval: 30s
     conditions:
       - "[STATUS] == 200"
       - "[BODY].status == ok"
 
-  - name: block-indexer
+  - name: periscope
     group: services
-    url: "http://block-indexer:8080/health"
+    url: "http://periscope:8080/health"
     interval: 30s
     conditions:
       - "[STATUS] == 200"
       - "[BODY].status == ok"
 
-  - name: rate-limiter-service
+  - name: pacer
     group: services
-    url: "http://rate-limiter-service:8080/health"
+    url: "http://pacer:8080/health"
     interval: 30s
     conditions:
       - "[STATUS] == 200"
       - "[BODY].status == ok"
 
-  - name: job-scheduler
+  - name: planner
     group: services
-    url: "http://job-scheduler:4000/health"
+    url: "http://planner:4000/health"
     interval: 30s
     conditions:
       - "[STATUS] == 200"
       - "[BODY].status == ok"
 
-  - name: distributed-kvstore
+  - name: partition
     group: services
-    url: "http://distributed-kvstore:4000/health"
+    url: "http://partition:4000/health"
     interval: 30s
     conditions:
       - "[STATUS] == 200"
       - "[BODY].status == ok"
 
-  - name: p2p-gossip-protocol
+  - name: prattle
     group: services
-    url: "http://p2p-gossip-protocol:8080/health"
+    url: "http://prattle:8080/health"
     interval: 30s
     conditions:
       - "[STATUS] == 200"
       - "[BODY].status == ok"
 
-  - name: tx-mempool-simulator
+  - name: purgatory
     group: services
-    url: "http://tx-mempool-simulator:8545/health"
+    url: "http://purgatory:8545/health"
     interval: 30s
     conditions:
       - "[STATUS] == 200"
       - "[BODY].status == ok"
 
-  - name: markdown-cms
+  - name: papyrus
     group: services
-    url: "http://markdown-cms:3000/health"
+    url: "http://papyrus:3000/health"
     interval: 30s
     conditions:
       - "[STATUS] == 200"
       - "[BODY].status == ok"
 
-  - name: pdf-generator
+  - name: press
     group: services
-    url: "http://pdf-generator:8080/health"
+    url: "http://press:8080/health"
     interval: 30s
     conditions:
       - "[STATUS] == 200"
       - "[BODY].status == ok"
 
-  - name: sql-parser
+  - name: parseql
     group: services
-    url: "http://sql-parser:8080/health"
+    url: "http://parseql:8080/health"
     interval: 30s
     conditions:
       - "[STATUS] == 200"
       - "[BODY].status == ok"
 
-  - name: stream-processor
+  - name: pipeline
     group: services
-    url: "http://stream-processor:8080/health"
+    url: "http://pipeline:8080/health"
     interval: 30s
     conditions:
       - "[STATUS] == 200"

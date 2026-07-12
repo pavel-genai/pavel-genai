@@ -1,4 +1,4 @@
-# search-engine (port 8080): index a document, find it, check stats.
+# prospector (port 8080): index a document, find it, check stats.
 # Note: the index persists inside the container, so re-runs accumulate
 # duplicate documents — asserts use >= and token-based lookups.
 
@@ -6,7 +6,7 @@ GET http://localhost:8080/health
 HTTP 200
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.service" == "search-engine"
+jsonpath "$.service" == "prospector"
 
 POST http://localhost:8080/index
 Content-Type: application/json

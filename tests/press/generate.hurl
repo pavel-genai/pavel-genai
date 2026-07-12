@@ -1,11 +1,11 @@
-# pdf-generator (port 8084): renders the invoice template from JSON
+# press (port 8084): renders the invoice template from JSON
 # data. A valid request returns raw PDF bytes (magic number %PDF).
 
 GET http://localhost:8084/health
 HTTP 200
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.service" == "pdf-generator"
+jsonpath "$.service" == "press"
 
 POST http://localhost:8084/generate
 Content-Type: application/json

@@ -1,4 +1,4 @@
-# sql-parser (port 8085): error branches, ORDER BY / LIMIT.
+# parseql (port 8085): error branches, ORDER BY / LIMIT.
 # Uses its own table (hurl_err) so it can run in parallel with
 # query-flow.hurl, which owns hurl_smoke.
 

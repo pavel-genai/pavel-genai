@@ -1,4 +1,4 @@
-# stream-processor (port 8086): POST events (stdin JSON-line format),
+# pipeline (port 8086): POST events (stdin JSON-line format),
 # then observe windowed aggregates. State accumulates for the process
 # lifetime; asserts are written to hold on re-runs.
 
@@ -6,7 +6,7 @@ GET http://localhost:8086/health
 HTTP 200
 [Asserts]
 jsonpath "$.status" == "ok"
-jsonpath "$.service" == "stream-processor"
+jsonpath "$.service" == "pipeline"
 
 # single event
 POST http://localhost:8086/events
