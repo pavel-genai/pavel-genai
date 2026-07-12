@@ -1,7 +1,7 @@
 ---
 services:
   search-engine:
-    build: ../search-engine
+    build: ../prospector
     ports:
       - "8080:8080"
     environment:
@@ -19,7 +19,7 @@ services:
       start_period: 30s
 
   block-indexer:
-    build: ../block-indexer
+    build: ../periscope
     ports:
       - "8081:8080"
     environment:
@@ -47,7 +47,7 @@ services:
       retries: 3
 
   rate-limiter-service:
-    build: ../rate-limiter-service
+    build: ../pacer
     ports:
       - "50051:50051"
       - "8082:8080"
@@ -68,7 +68,7 @@ services:
       start_period: 15s
 
   job-scheduler:
-    build: ../job-scheduler
+    build: ../planner
     ports:
       - "4000:4000"
     healthcheck:
@@ -84,7 +84,7 @@ services:
       start_period: 15s
 
   distributed-kvstore:
-    build: ../distributed-kvstore
+    build: ../partition
     ports:
       - "4001:4000"
     healthcheck:
@@ -100,7 +100,7 @@ services:
       start_period: 15s
 
   tx-mempool-simulator:
-    build: ../tx-mempool-simulator
+    build: ../purgatory
     ports:
       - "8545:8545"
     healthcheck:
@@ -110,7 +110,7 @@ services:
       retries: 3
 
   markdown-cms:
-    build: ../markdown-cms
+    build: ../papyrus
     ports:
       - "3000:3000"
     healthcheck:
@@ -126,7 +126,7 @@ services:
       start_period: 15s
 
   pdf-generator:
-    build: ../pdf-generator
+    build: ../press
     ports:
       - "8084:8080"
     healthcheck:
@@ -142,7 +142,7 @@ services:
       start_period: 15s
 
   sql-parser:
-    build: ../sql-parser
+    build: ../parseql
     ports:
       - "8085:8080"
     healthcheck:
@@ -158,7 +158,7 @@ services:
       start_period: 15s
 
   stream-processor:
-    build: ../stream-processor
+    build: ../pipeline
     ports:
       - "8086:8080"
     healthcheck:
@@ -189,11 +189,11 @@ services:
   # One-shot CLI, not a daemon: run on demand with
   #   docker compose run --rm dns-resolver <domain>
   dns-resolver:
-    build: ../dns-resolver
+    build: ../phonebook
     profiles: ["tools"]
 
   p2p-gossip-protocol:
-    build: ../p2p-gossip-protocol
+    build: ../prattle
     command: ["--port", "7946"]
     ports:
       - "7946:7946/udp"
@@ -207,7 +207,7 @@ services:
   # Interactive REPL, not a daemon: run on demand with
   #   docker compose run --rm raft-consensus
   raft-consensus:
-    build: ../raft-consensus
+    build: ../parliament
     profiles: ["tools"]
     stdin_open: true
     tty: true
