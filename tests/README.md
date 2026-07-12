@@ -14,8 +14,8 @@ brew install hurl   # single binary, no runtime dependencies
 
 ```bash
 make up                # start the stack (wait for healthchecks to go green)
-make test              # run all suites
-make test-sql-parser   # run one service's suite (test-<service-dir>)
+make test              # run all suites; writes an HTML report to reports/
+make test-sql-parser   # run one service's suite (test-<alias|service>)
 ```
 
 Or directly, without make:

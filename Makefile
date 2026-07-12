@@ -27,8 +27,11 @@ logs:
 	docker compose logs -f --tail=100
 
 # Integration tests (Hurl suites in tests/, one directory per service).
+# Writes an HTML report to reports/ (view with: open reports/index.html).
+# The directory is wiped first so the report always reflects the latest run.
 test:
-	hurl --test tests/*/*.hurl
+	rm -rf reports
+	hurl --test --report-html reports tests/*/*.hurl
 
 # One-shot / interactive tools
 dns-resolver:
